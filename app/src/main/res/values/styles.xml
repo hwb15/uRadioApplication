@@ -1,9 +1,24 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="uRadioTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+
+        <!-- Main colour for branding -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Colour variant, hardly used in app -->
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <!-- Colour for elements displayed on top of colorPrimary -->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <!-- Colour used for accents -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <!-- Colour used for elements displayed on top of secondary colours -->
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <!-- Colour used for errors -->
+        <item name="colorError">@color/colorError</item>
+        <!-- Colour displayed on errors -->
+        <item name="colorOnError">@color/colorOnError</item>
+
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
