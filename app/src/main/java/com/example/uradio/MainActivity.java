@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Variable declarations
     ListView stationList;
+    View bottom_player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
