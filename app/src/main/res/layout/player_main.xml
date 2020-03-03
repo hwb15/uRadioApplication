@@ -17,9 +17,8 @@
             android:id="@+id/stationList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_marginTop="?attr/actionBarSize" />
 
-        </ListView>
 
         <View
             android:id="@+id/emptySpace"
