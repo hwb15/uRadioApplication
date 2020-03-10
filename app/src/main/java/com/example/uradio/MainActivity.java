@@ -1,8 +1,10 @@
 package com.example.uradio;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleExoPlayer radioPlayer;
     ImageButton playButton;
     Boolean audio_on;
-
+    ImageButton cogButton;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -141,7 +143,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
+        // Test for cog button to see if it changes to another view using intents
+
+        cogButton = (ImageButton) findViewById(R.id.removeStationCog);
+        cogButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // if cog is pressed, change to add_station activity
+
+                    Intent intent = new Intent(v.getContext(), addStationActivity.class);
+                    v.getContext().startActivity(intent);
+                    Log.i("Main Activity", "Add Station Activity");
+                }
+            });
+        }
+
 
     // ExoPlayer implementations
 
@@ -178,3 +195,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 }
+
+
+
+
