@@ -27,8 +27,6 @@ public class addStationActivity extends AppCompatActivity {
         // initializing variable;
         stationurl = "default";
 
-        // Save button actions
-
         // initializing the view using findViewById
 
         Button saveStation_btn = (Button) findViewById(R.id.savestation_button);
