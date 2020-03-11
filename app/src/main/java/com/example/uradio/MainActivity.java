@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         stationList = (ListView)findViewById(R.id.stationList);
 
         // Adding items into the stationList array
-        stations.add("Press here to add a new station - then press the cog");
+        stations.add("+ Add a station here - then press the cog");
 
         // Variable resets
         audio_on = false;

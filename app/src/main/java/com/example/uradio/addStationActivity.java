@@ -27,10 +27,17 @@ public class addStationActivity extends AppCompatActivity {
         // initializing variable;
         stationurl = "default";
 
+        // Save button actions
+
         // initializing the view using findViewById
 
         Button saveStation_btn = (Button) findViewById(R.id.savestation_button);
+        Button cancelInput_btn = (Button) findViewById(R.id.cancelstation_button);
+
         final EditText user_station_input = (EditText) findViewById(R.id.radiostation_userinput);
+
+        // Save down the station and return to the main activity -
+        // passing the station url that the user inputted
 
         saveStation_btn.setOnClickListener(
                 new View.OnClickListener()
@@ -43,6 +50,18 @@ public class addStationActivity extends AppCompatActivity {
                         Intent passStation = new Intent(addStationActivity.this, MainActivity.class);
                         passStation.putExtra("stationurl", stationurl);
                         startActivity(passStation);
+                    }
+                }
+        );
+
+        cancelInput_btn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Changing back to the main activity
+                        MainActivity.new_station = false;
+                        Intent cancelStation = new Intent(addStationActivity.this, MainActivity.class);
+                        startActivity(cancelStation);
                     }
                 }
         );
