@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton playButton;
     Boolean audio_on;
     ImageButton cogButton;
+    SimpleExoPlayer emptyRadioPlayer;
+    public static Boolean new_station = false;
+    String stationurl;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -63,12 +66,20 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         // Initalising the station listview
-        stationList=(ListView)findViewById(R.id.stationList);
+        stationList = (ListView)findViewById(R.id.stationList);
         final ArrayList<String> stations = new ArrayList<>();
 
-        // Exoplayer implements
-
+        // Variable resets
         audio_on = false;
+
+        // Logging down state of audio on for testing
+        Log.v("randomtag", "Audio on state:" + audio_on);
+
+        // If a new station has been saved down within addStationActivity (run method newstation)
+
+        if (new_station == true) {
+            newStation();
+        }
 
         // Implementing control for the play button in the botton nav bar
 
@@ -98,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         stations.add("Station 2");
         stations.add("Station 3");
         stations.add("+ Add a station here");
+
 
         ArrayAdapter stationAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stations) {
             // Alternating the colour in the List View
@@ -132,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     radioPlayer.setPlayWhenReady(true);
                     playButton.setImageResource(R.drawable.exo_controls_pause);
                     audio_on = true;
+                    cogButton.setVisibility(View.VISIBLE);
                 }
 
                 else if (audio_on) {
@@ -151,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // if cog is pressed, change to add_station activity
-
+                    CreateEmptyPlayer();
                     Intent intent = new Intent(v.getContext(), addStationActivity.class);
                     v.getContext().startActivity(intent);
                     Log.i("Main Activity", "Add Station Activity");
@@ -179,6 +192,23 @@ public class MainActivity extends AppCompatActivity {
         radioPlayer.prepare(mediaSource);
     }
 
+    private void CreateEmptyPlayer() {
+        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF);
+
+        TrackSelector trackSelector = new DefaultTrackSelector();
+        emptyRadioPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector);
+
+        String userAgent = Util.getUserAgent(this, "Play Radio");
+        ExtractorMediaSource mediaSource = new ExtractorMediaSource(
+                Uri.parse(""), // The audio stream the user selects
+                new DefaultDataSourceFactory(this, userAgent),
+                new DefaultExtractorsFactory(),
+                null,
+                null
+        );
+        emptyRadioPlayer.prepare(mediaSource);
+    }
+
     private void release_player() {
         radioPlayer.release();
     }
@@ -191,8 +221,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        radioPlayer.release();
-        super.onPause();
+            radioPlayer.release();
+            super.onPause();
+        }
+
+
+
+    public void newStation() {
+        // Passing saved URL from addStationActivity into the ArrayList
+        Bundle bundle = getIntent().getExtras();
+        stationurl = bundle.getString("stationurl");
+        Log.v("Station URL TEST", "Station URL: " + stationurl);
     }
 }
 
