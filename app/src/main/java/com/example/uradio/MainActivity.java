@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton playButton;
     Boolean audio_on;
     ImageButton cogButton;
-    SimpleExoPlayer emptyRadioPlayer;
     public static Boolean new_station = false;
     String stationurl;
+    ArrayList<String> stations = new ArrayList<>();
+    String selectedstation;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -65,9 +66,12 @@ public class MainActivity extends AppCompatActivity {
         // Suppress the built-in action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
         // Initalising the station listview
         stationList = (ListView)findViewById(R.id.stationList);
-        final ArrayList<String> stations = new ArrayList<>();
+
+        // Adding items into the stationList array
+        stations.add("Press here to add a new station - then press the cog");
 
         // Variable resets
         audio_on = false;
@@ -104,11 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
         });
 
-        // Adding items into the stationList array
-        stations.add("Rinse FM");
-        stations.add("Station 2");
-        stations.add("Station 3");
-        stations.add("+ Add a station here");
+
 
 
         ArrayAdapter stationAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stations) {
@@ -136,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, "Selected Station: " + stations.get(position), Toast.LENGTH_SHORT).show();
 
+                // Sets the variable selected station to the station user has pressed on (to be loaded to uri)
+                selectedstation = stations.get(position);
 
                 // Implementing exo player controls within list view >> need to change for selection
                 // on specific station; and stop control through list view - might need to create a separate method for audio playing
@@ -164,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // if cog is pressed, change to add_station activity
-                    CreateEmptyPlayer();
                     Intent intent = new Intent(v.getContext(), addStationActivity.class);
                     v.getContext().startActivity(intent);
                     Log.i("Main Activity", "Add Station Activity");
@@ -183,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
         String userAgent = Util.getUserAgent(this, "Play Radio");
         ExtractorMediaSource mediaSource = new ExtractorMediaSource(
-                Uri.parse("http://206.189.117.157:8000/stream"), // The audio stream the user selects
+                Uri.parse(selectedstation), // The audio stream the user selects
                 new DefaultDataSourceFactory(this, userAgent),
         new DefaultExtractorsFactory(),
         null,
@@ -192,22 +193,6 @@ public class MainActivity extends AppCompatActivity {
         radioPlayer.prepare(mediaSource);
     }
 
-    private void CreateEmptyPlayer() {
-        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF);
-
-        TrackSelector trackSelector = new DefaultTrackSelector();
-        emptyRadioPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector);
-
-        String userAgent = Util.getUserAgent(this, "Play Radio");
-        ExtractorMediaSource mediaSource = new ExtractorMediaSource(
-                Uri.parse(""), // The audio stream the user selects
-                new DefaultDataSourceFactory(this, userAgent),
-                new DefaultExtractorsFactory(),
-                null,
-                null
-        );
-        emptyRadioPlayer.prepare(mediaSource);
-    }
 
     private void release_player() {
         radioPlayer.release();
@@ -225,13 +210,12 @@ public class MainActivity extends AppCompatActivity {
             super.onPause();
         }
 
-
-
     public void newStation() {
         // Passing saved URL from addStationActivity into the ArrayList
         Bundle bundle = getIntent().getExtras();
         stationurl = bundle.getString("stationurl");
         Log.v("Station URL TEST", "Station URL: " + stationurl);
+        stations.add(stationurl);
     }
 }
 

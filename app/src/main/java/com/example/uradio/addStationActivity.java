@@ -50,7 +50,4 @@ public class addStationActivity extends AppCompatActivity {
         );
     }
 
-    public void saveStationDetails() {
-
-    }
 }
