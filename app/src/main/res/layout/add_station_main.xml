@@ -32,6 +32,13 @@
 
 
         <EditText
+            android:id="@+id/radiostationname_userinput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Input station name here"
+            android:inputType="text" />
+
+        <EditText
             android:id="@+id/radiostation_userinput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.uradio;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,8 +39,11 @@ import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.navigation.NavigationView;
 
 import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,13 +58,17 @@ public class MainActivity extends AppCompatActivity {
     ImageButton cogButton;
     public static Boolean new_station = false;
     String stationurl;
-    ArrayList<String> stations = new ArrayList<>();
+    ArrayList<radio_station> stations = new ArrayList<radio_station>();
     String selectedstation;
+    String stationname;
+    TextView now_playing;
 
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // load saved station list from gson
+        loadStations();
         // Set layout view
         setContentView(R.layout.activity_main);
         // Suppress the built-in action bar
@@ -70,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
         // Initalising the station listview
         stationList = (ListView)findViewById(R.id.stationList);
 
-        // Adding items into the stationList array
-        stations.add("+ Add a station here - then press the cog");
 
         // Variable resets
         audio_on = false;
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (new_station == true) {
             newStation();
+            new_station = false;
         }
 
         // Implementing control for the play button in the botton nav bar
@@ -128,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        // Setting station adapter into the listview
+
         stationList.setAdapter(stationAdapter);
 
         stationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -137,16 +146,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Selected Station: " + stations.get(position), Toast.LENGTH_SHORT).show();
 
                 // Sets the variable selected station to the station user has pressed on (to be loaded to uri)
-                selectedstation = stations.get(position);
+                selectedstation = stations.get(position).getStation_url();
+
+                // Set the now playing text view to the station name saved by user
+                now_playing = findViewById(R.id.now_playing_label);
+
 
                 // Implementing exo player controls within list view >> need to change for selection
                 // on specific station; and stop control through list view - might need to create a separate method for audio playing
                 if (!audio_on) {
                     CreatePlayer();
+                    now_playing.setText(stations.get(position).getStation_name());
                     radioPlayer.setPlayWhenReady(true);
                     playButton.setImageResource(R.drawable.exo_controls_pause);
                     audio_on = true;
-                    cogButton.setVisibility(View.VISIBLE);
                 }
 
                 else if (audio_on) {
@@ -206,16 +219,47 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        if (audio_on) {
             radioPlayer.release();
+            saveStations();
+            super.onPause();
+        } else {
+            saveStations();
             super.onPause();
         }
+    }
+
+    private void saveStations() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(stations);
+        editor.putString("station list", json);
+        editor.apply();
+    }
+
+    private void loadStations() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("station list", null);
+        Type type = new TypeToken<ArrayList<radio_station>>() {}.getType();
+        stations = gson.fromJson(json, type);
+
+        // check for null
+        if (stations == null) {
+            stations = new ArrayList<>();
+        }
+    }
 
     public void newStation() {
         // Passing saved URL from addStationActivity into the ArrayList
         Bundle bundle = getIntent().getExtras();
         stationurl = bundle.getString("stationurl");
+        stationname = bundle.getString("stationname");
+        Log.v("Station NAME TEST", "Station NAME: " + stationname);
         Log.v("Station URL TEST", "Station URL: " + stationurl);
-        stations.add(stationurl);
+        radio_station newStation = new radio_station(stationname, stationurl);
+        stations.add(newStation);
     }
 }
 

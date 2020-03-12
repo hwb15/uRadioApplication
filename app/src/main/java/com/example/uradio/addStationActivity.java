@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class addStationActivity extends AppCompatActivity {
 
     String stationurl;
+    String stationname;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class addStationActivity extends AppCompatActivity {
 
         // initializing variable;
         stationurl = "default";
+        stationname = "default";
 
         // Save button actions
 
@@ -35,6 +37,7 @@ public class addStationActivity extends AppCompatActivity {
         Button cancelInput_btn = (Button) findViewById(R.id.cancelstation_button);
 
         final EditText user_station_input = (EditText) findViewById(R.id.radiostation_userinput);
+        final EditText user_stationname_input = (EditText) findViewById(R.id.radiostationname_userinput);
 
         // Save down the station and return to the main activity -
         // passing the station url that the user inputted
@@ -46,9 +49,11 @@ public class addStationActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         // Saving the http to string to be passed to main activity
                         MainActivity.new_station = true;
+                        stationname = user_stationname_input.getText().toString();
                         stationurl = user_station_input.getText().toString();
                         Intent passStation = new Intent(addStationActivity.this, MainActivity.class);
                         passStation.putExtra("stationurl", stationurl);
+                        passStation.putExtra("stationname", stationname);
                         startActivity(passStation);
                     }
                 }

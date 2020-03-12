@@ -46,8 +46,7 @@
                     android:background="@null"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/settings"
-                    android:tint="@color/colorOnPrimary"
-                    android:visibility="invisible" />
+                    android:tint="@color/colorOnPrimary" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
