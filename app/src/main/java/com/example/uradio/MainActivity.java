@@ -1,5 +1,7 @@
 package com.example.uradio;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleExoPlayer radioPlayer;
     ImageButton playButton;
     Boolean audio_on;
-    ImageButton cogButton;
+    ImageButton plusStation;
     public static Boolean new_station = false;
     String stationurl;
     ArrayList<radio_station> stations = new ArrayList<radio_station>();
@@ -118,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ArrayAdapter stationAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stations) {
+        final ArrayAdapter stationAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stations) {
             // Alternating the colour in the List View
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -170,15 +173,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Setup long press on listview item for to delete a station from the list
 
-        // Test for cog button to see if it changes to another view using intents
+        stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-        cogButton = (ImageButton) findViewById(R.id.removeStationCog);
-        cogButton.setOnClickListener(new View.OnClickListener() {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(R.drawable.ic_delete_forever_24px)
+                        .setTitle("Confirm below...")
+                        .setMessage("Do you want to remove this station?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                stations.remove(position);
+                                stationAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                return true;
+            }
+        });
+
+
+        // Test for plus button to see if it changes to another view using intents
+
+        plusStation = (ImageButton) findViewById(R.id.plus_station_button);
+        plusStation.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // if cog is pressed, change to add_station activity
+                // if plus button is pressed, change to add_station activity
                     Intent intent = new Intent(v.getContext(), addStationActivity.class);
                     v.getContext().startActivity(intent);
                     Log.i("Main Activity", "Add Station Activity");

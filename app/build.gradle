@@ -37,7 +37,9 @@ dependencies {
     //Exoplayer implementation
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
 
-    //gson
+    //gson to save arraylist
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //Swipe to dismiss library implementation
+    compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
 }

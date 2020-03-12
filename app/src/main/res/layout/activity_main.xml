@@ -37,7 +37,7 @@
                     android:textColor="@color/colorOnPrimary" />
 
                 <ImageButton
-                    android:id="@+id/removeStationCog"
+                    android:id="@+id/plus_station_button"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -45,7 +45,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@null"
                     android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/settings"
+                    android:src="@drawable/ic_add_circle_outline_24px"
                     android:tint="@color/colorOnPrimary" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
