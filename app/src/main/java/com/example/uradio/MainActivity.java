@@ -152,8 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedstation = stations.get(position).getStation_url();
 
                 // Set the now playing text view to the station name saved by user
-                now_playing = findViewById(R.id.now_playing_label);
-
+                now_playing = findViewById(R.id.station_name);
 
                 // Implementing exo player controls within list view >> need to change for selection
                 // on specific station; and stop control through list view - might need to create a separate method for audio playing

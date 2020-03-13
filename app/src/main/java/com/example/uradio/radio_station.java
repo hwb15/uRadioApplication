@@ -25,4 +25,11 @@ public class radio_station {
     public void setStation_url(String station_url) {
         this.station_url = station_url;
     }
+
+
+    // Overrides the array adapter toString method to display the station name
+    @Override
+    public String toString() {
+        return getStation_name();
+    }
 }
