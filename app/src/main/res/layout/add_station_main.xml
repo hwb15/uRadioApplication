@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_marginTop="?attr/actionBarSize"
         android:background="@drawable/border_shadow"
         android:gravity="center"
@@ -48,20 +48,35 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_gravity="right"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
             <Button
                 android:id="@+id/cancelstation_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@android:string/cancel" />
+                style="?attr/materialButtonOutlinedStyle"
+                android:text="@android:string/cancel"
+                android:textColor="@color/colorSecondaryVariant" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"></Space>
 
             <Button
                 android:id="@+id/savestation_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save" />
+                style="?attr/materialButtonOutlinedStyle"
+                android:text="Save"
+                android:textColor="@color/colorSecondaryVariant" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"></Space>
         </LinearLayout>
 
     </LinearLayout>

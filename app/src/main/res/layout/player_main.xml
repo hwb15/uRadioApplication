@@ -17,15 +17,9 @@
             android:id="@+id/stationList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize" />
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_weight="1" />
 
-
-        <View
-            android:id="@+id/empty_space"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent" />
 
         <RelativeLayout
             android:id="@+id/bottom_player"
@@ -53,7 +47,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="@color/colorOnPrimary"
-                android:textSize="18sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/playButton"

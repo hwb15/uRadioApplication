@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final ArrayAdapter stationAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stations) {
+        final ArrayAdapter stationAdapter = new ArrayAdapter(this, R.layout.simple_list_item_1_radiolist, stations) {
             // Alternating the colour in the List View
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
