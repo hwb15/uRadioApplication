@@ -2,4 +2,6 @@
     <string name="app_name">uRadio</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="str_home">Home</string>
+    <string name="str_settings">Settings</string>
 </resources>

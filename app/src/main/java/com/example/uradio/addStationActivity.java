@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class addStationActivity extends AppCompatActivity {
 
@@ -24,8 +25,8 @@ public class addStationActivity extends AppCompatActivity {
         setContentView(R.layout.add_station_main);
 
         // Suppress the built-in action bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        Toolbar toolbar = findViewById(R.id.top_bar);
+        setSupportActionBar(toolbar);
 
         // initializing variable;
         stationurl = "default";
@@ -46,7 +47,7 @@ public class addStationActivity extends AppCompatActivity {
         // Validation rules for the text fields
 
         if (user_stationname_input.getText().toString().length() == 0 || user_stationname_input.getText().toString().length() > 20) {
-            user_stationname_input.setError("The station name has to be within the range of 1 - 20 characters!");
+            user_stationname_input.setError("The station name has to be within the range of 1 - 20 characters! ");
         } else {
             user_stationname_input.setError(null);
         }
@@ -54,7 +55,7 @@ public class addStationActivity extends AppCompatActivity {
         String station_url_inputted = user_station_input.getText().toString();
 
         if (user_station_input.getText().toString().isEmpty() || !user_station_input.getText().toString().startsWith("http://") || !user_station_input.getText().toString().startsWith("https://")) {
-            user_station_input.setError("Enter a valid url, starting with 'http://' or 'https://'!");
+            user_station_input.setError("Enter a valid url, starting with 'http://' or 'https://'! ");
         } else {
             user_station_input.setError(null);
 

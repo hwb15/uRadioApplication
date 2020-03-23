@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +26,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -49,6 +53,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
 
     // Variable declarations
@@ -65,18 +70,43 @@ public class MainActivity extends AppCompatActivity {
     String selectedstation;
     String stationname;
     TextView now_playing;
+    private DrawerLayout drawerLayout;
+    private NavigationView navMenu;
 
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.uRadioTheme);
         super.onCreate(savedInstanceState);
+
         // load saved station list from gson
         loadStations();
         // Set layout view
         setContentView(R.layout.activity_main);
-        // Suppress the built-in action bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+
+
+        // Coding Navigation Menu
+        // Intialising nav drawer
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navMenu = findViewById(R.id.nav_menu_view);
+        Toolbar toolbar = findViewById(R.id.top_bar);
+        setSupportActionBar(toolbar);
+
+        navMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Toast.makeText(MainActivity.this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.nav_settings:
+                        Toast.makeText(MainActivity.this, "Settings Clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
 
         // Initalising the station listview
         stationList = (ListView)findViewById(R.id.stationList);
@@ -285,6 +315,18 @@ public class MainActivity extends AppCompatActivity {
         Log.v("Station URL TEST", "Station URL: " + stationurl);
         radio_station newStation = new radio_station(stationname, stationurl);
         stations.add(newStation);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }
 
