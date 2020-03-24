@@ -69,7 +69,7 @@
             android:layout_marginBottom="5dp"
             android:hint="Station URL"
             app:boxBackgroundColor="@color/colorOnPrimary"
-            app:helperText="example.com/example.mp3"
+            app:helperText="http://example.com/example.mp3"
             app:helperTextEnabled="true">
 
             <EditText
