@@ -1,0 +1,11 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item android:drawable="@color/colorPrimary"/>
+
+    <item
+            android:gravity="center"
+            android:drawable="@drawable/ic_u_radio_logo"
+            android:width="250dp"
+            android:height="250dp" />
+
+</layer-list>
