@@ -136,18 +136,17 @@ public class MainActivity extends AppCompatActivity {
                 if (!audio_on) {
                 CreatePlayer();
                 radioPlayer.setPlayWhenReady(true);
-                playButton.setImageResource(R.drawable.exo_controls_pause);
+                playButton.setImageResource(R.drawable.ic_u_radio_pause);
                 audio_on = true;
             }
 
                 else if (audio_on) {
                 radioPlayer.stop();
-                playButton.setImageResource(R.drawable.play_button_white);
+                playButton.setImageResource(R.drawable.ic_u_radio_play);
                 audio_on = false;
             }
         }
         });
-
 
 
 
@@ -190,13 +189,13 @@ public class MainActivity extends AppCompatActivity {
                     CreatePlayer();
                     now_playing.setText(stations.get(position).getStation_name());
                     radioPlayer.setPlayWhenReady(true);
-                    playButton.setImageResource(R.drawable.exo_controls_pause);
+                    playButton.setImageResource(R.drawable.ic_u_radio_pause);
                     audio_on = true;
                 }
 
                 else if (audio_on) {
                     radioPlayer.stop();
-                    playButton.setImageResource(R.drawable.play_button_white);
+                    playButton.setImageResource(R.drawable.ic_u_radio_play);
                     audio_on = false;
                 }
             }

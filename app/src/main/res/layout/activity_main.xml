@@ -51,8 +51,7 @@
                         android:layout_marginRight="10dp"
                         android:background="@null"
                         android:backgroundTint="@android:color/transparent"
-                        android:src="@drawable/ic_add_circle_outline_24px"
-                        android:tint="@color/colorOnPrimary" />
+                        android:src="@drawable/ic_u_radio_add" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
