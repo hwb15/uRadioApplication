@@ -6,9 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include layout="@layout/activity_main" />
+    <include
+        layout="@layout/activity_main"
+        app:layout_anchor="@+id/linearLayout2"
+        app:layout_anchorGravity="center" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

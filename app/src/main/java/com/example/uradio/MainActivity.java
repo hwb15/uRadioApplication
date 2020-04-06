@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.nav_settings:
                         Toast.makeText(MainActivity.this, "Settings Clicked", Toast.LENGTH_SHORT).show();
+                        Intent settingsActive = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(settingsActive);
                         return true;
                     default:
                         return false;
@@ -267,8 +269,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        radioPlayer.release();
-        super.onDestroy();
+        if (audio_on) {
+            radioPlayer.release();
+            super.onDestroy();
+        } else {
+            super.onDestroy();
+        }
     }
 
     @Override

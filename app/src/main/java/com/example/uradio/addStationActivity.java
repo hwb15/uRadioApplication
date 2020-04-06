@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ public class addStationActivity extends AppCompatActivity {
     private EditText user_stationname_input, user_station_input;
     private Button saveStation_btn, cancelInput_btn;
     private TextInputLayout inputLayoutStationName, inputLayoutStationURL;
-
+    private ImageButton add_station_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,8 @@ public class addStationActivity extends AppCompatActivity {
         stationurl = "default";
         stationname = "default";
 
-        // Save button actions
 
         // initializing the view using findViewById
-
-
         // text input layouts
         inputLayoutStationName = (TextInputLayout) findViewById(R.id.inputLayoutStationName);
         inputLayoutStationURL = (TextInputLayout) findViewById(R.id.inputLayoutStationURL);
@@ -53,6 +51,10 @@ public class addStationActivity extends AppCompatActivity {
         // edit text fields
         user_station_input = (EditText) findViewById(R.id.radiostation_userinput);
         user_stationname_input = (EditText) findViewById(R.id.radiostationname_userinput);
+
+        // Hiding the add button
+        add_station_button = (ImageButton) findViewById(R.id.plus_station_button);
+        add_station_button.setVisibility(View.INVISIBLE);
 
 
 
