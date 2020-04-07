@@ -66,12 +66,14 @@ public class MainActivity extends AppCompatActivity {
     ImageButton plusStation;
     public static Boolean new_station = false;
     String stationurl;
-    ArrayList<radio_station> stations = new ArrayList<radio_station>();
+    static ArrayList<radio_station> stations = new ArrayList<radio_station>();
     String selectedstation;
     String stationname;
     TextView now_playing;
     private DrawerLayout drawerLayout;
     private NavigationView navMenu;
+    ArrayAdapter stationAdapter;
+    int LAUNCH_SETTINGS_ACTIVITY = 1;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -84,13 +86,14 @@ public class MainActivity extends AppCompatActivity {
         // Set layout view
         setContentView(R.layout.activity_main);
 
+        // Top toolbar
+        Toolbar toolbar = findViewById(R.id.top_bar);
+        setSupportActionBar(toolbar);
 
         // Coding Navigation Menu
         // Intialising nav drawer
         drawerLayout = findViewById(R.id.drawer_layout);
         navMenu = findViewById(R.id.nav_menu_view);
-        Toolbar toolbar = findViewById(R.id.top_bar);
-        setSupportActionBar(toolbar);
 
         navMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -98,11 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         Toast.makeText(MainActivity.this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav_settings:
                         Toast.makeText(MainActivity.this, "Settings Clicked", Toast.LENGTH_SHORT).show();
-                        Intent settingsActive = new Intent(MainActivity.this, SettingsActivity.class);
-                        startActivity(settingsActive);
+                        Intent settings_active = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivityForResult(settings_active, LAUNCH_SETTINGS_ACTIVITY);
                         return true;
                     default:
                         return false;
@@ -152,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final ArrayAdapter stationAdapter = new ArrayAdapter(this, R.layout.simple_list_item_1_radiolist, stations) {
+        stationAdapter = new ArrayAdapter(this, R.layout.simple_list_item_1_radiolist, stations) {
             // Alternating the colour in the List View
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -272,8 +276,6 @@ public class MainActivity extends AppCompatActivity {
         if (audio_on) {
             radioPlayer.release();
             super.onDestroy();
-        } else {
-            super.onDestroy();
         }
     }
 
@@ -286,6 +288,24 @@ public class MainActivity extends AppCompatActivity {
         } else {
             saveStations();
             super.onPause();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SETTINGS_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("result");
+                stations.clear();
+                stationAdapter.notifyDataSetChanged();
+                Log.v("Adapter Set Change", "Dataset Changed");
+
+            }
+            if (resultCode == RESULT_CANCELED) {
+                Log.v("No options selected", "X selected in settings");
+            }
         }
     }
 
