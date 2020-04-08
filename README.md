@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to uRadio 👋</h1>
 <p>
   <a href="https://twitter.com/uRadioUK" target="_blank">
-    <img alt="Twitter: uRadioUK" src="https://img.shields.io/twitter/follow/uRadioUK.svg?style=social" />
+    <img alt="Twitter uRadioUK:" src="https://img.shields.io/twitter/follow/uradiouk?style=social">
   </a>
 </p>
 
