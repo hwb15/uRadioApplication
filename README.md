@@ -7,7 +7,7 @@
 
 > Lightweight Android HLS streaming (radio) application - add your own streams whenever, and stream all your favourite stations. [CI560 Semester 2 project]
 
-### 🏠 [Homepage](uradio.uk)
+### 🏠 [Homepage](https://uradio.uk)
 
 ## Usage
 
