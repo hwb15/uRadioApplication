@@ -301,7 +301,6 @@ public class MainActivity extends AppCompatActivity {
                 stations.clear();
                 stationAdapter.notifyDataSetChanged();
                 Log.v("Adapter Set Change", "Dataset Changed");
-
             }
             if (resultCode == RESULT_CANCELED) {
                 Log.v("No options selected", "X selected in settings");
