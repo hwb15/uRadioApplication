@@ -1,6 +1,7 @@
 package com.example.uradio;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -69,15 +71,36 @@ public class SettingsActivity extends AppCompatActivity {
         remove_station_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeStations();
-                Log.v("Cleared", "Stations have been cleared");
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setIcon(R.drawable.ic_delete_forever_24px)
+                        .setTitle("Confirm below...")
+                        .setMessage("Do you want to remove all Stations you have saved?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                removeStations();
+                                Log.v("Cleared", "Stations have been cleared");
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
 
         about_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setIcon(R.drawable.ic_help_black_24dp)
+                        .setTitle("About...")
+                        .setMessage("uRadio.uk by github.com/hwb15")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
 
