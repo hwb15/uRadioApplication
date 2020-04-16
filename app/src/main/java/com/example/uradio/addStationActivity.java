@@ -2,15 +2,11 @@ package com.example.uradio;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -43,17 +39,17 @@ public class addStationActivity extends AppCompatActivity {
 
         // initializing the view using findViewById
         // text input layouts
-        inputLayoutStationName = (TextInputLayout) findViewById(R.id.inputLayoutStationName);
-        inputLayoutStationURL = (TextInputLayout) findViewById(R.id.inputLayoutStationURL);
+        inputLayoutStationName = findViewById(R.id.inputLayoutStationName);
+        inputLayoutStationURL = findViewById(R.id.inputLayoutStationURL);
         //buttons
-        saveStation_btn = (Button) findViewById(R.id.savestation_button);
-        cancelInput_btn = (Button) findViewById(R.id.cancelstation_button);
+        saveStation_btn = findViewById(R.id.savestation_button);
+        cancelInput_btn = findViewById(R.id.cancelstation_button);
         // edit text fields
-        user_station_input = (EditText) findViewById(R.id.radiostation_userinput);
-        user_stationname_input = (EditText) findViewById(R.id.radiostationname_userinput);
+        user_station_input = findViewById(R.id.radiostation_userinput);
+        user_stationname_input = findViewById(R.id.radiostationname_userinput);
 
         // Hiding the add button
-        add_station_button = (ImageButton) findViewById(R.id.plus_station_button);
+        add_station_button = findViewById(R.id.plus_station_button);
         add_station_button.setVisibility(View.INVISIBLE);
 
 

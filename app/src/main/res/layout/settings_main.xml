@@ -31,17 +31,18 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:background="@drawable/border_shadow"
             android:gravity="center"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:theme="@style/uRadioTheme">
             <Button
                 android:id="@+id/settingsRemoveButton"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remove all stations"
+                android:text="@string/str_removeall"
                 app:icon="@drawable/ic_delete_forever_24px"
-                app:iconSize="30dp"
-                app:iconTint="@color/colorSecondary" />
+                app:iconSize="33dp"
+                app:iconTint="@color/colorSecondary"
+                android:textSize="16sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -53,10 +54,11 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="About the app"
+                android:text="@string/about"
                 app:icon="@drawable/ic_help_black_24dp"
                 app:iconSize="30dp"
-                app:iconTint="@color/colorSecondary" />
+                app:iconTint="@color/colorSecondary"
+                android:textSize="16sp"/>
 
 
         </LinearLayout>

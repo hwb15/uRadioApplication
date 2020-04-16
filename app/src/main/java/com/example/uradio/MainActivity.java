@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton plusStation;
     public static Boolean new_station = false;
     String stationurl;
-    static ArrayList<radio_station> stations = new ArrayList<radio_station>();
+    static ArrayList<radio_station> stations = new ArrayList<>();
     String selectedstation;
     String stationname;
     TextView now_playing;
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Initalising the station listview
-        stationList = (ListView)findViewById(R.id.stationList);
+        stationList = findViewById(R.id.stationList);
 
 
         // Variable resets
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         // If a new station has been saved down within addStationActivity (run method newstation)
 
-        if (new_station == true) {
+        if (new_station) {
             newStation();
             new_station = false;
         }
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Test for plus button to see if it changes to another view using intents
 
-        plusStation = (ImageButton) findViewById(R.id.plus_station_button);
+        plusStation = findViewById(R.id.plus_station_button);
         plusStation.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -331,14 +331,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-
     }
 }
 

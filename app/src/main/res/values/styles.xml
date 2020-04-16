@@ -2,15 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="uRadioTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
 
-        <!-- Main colour for branding -->
+        <!-- Main colour for theme -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- Colour variant, hardly used in app -->
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <!-- Colour for elements displayed on top of colorPrimary -->
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <!-- Colour used for accents -->
+        <!-- Colour used for main branding -->
         <item name="colorSecondary">@color/colorSecondary</item>
         <!-- Colour used for elements displayed on top of secondary colours -->
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
@@ -27,6 +26,20 @@
 
     <style name="SplashScreenTheme" parent = "Theme.AppCompat.NoActionBar">
     <item name="android:windowBackground">@drawable/splash_screen_bg</item>
+    </style>
+
+    <!-- Alert dialog theme -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorSecondary</item>
     </style>
 
 </resources>

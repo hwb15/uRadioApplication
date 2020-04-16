@@ -1,6 +1,5 @@
 package com.example.uradio;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-import static com.example.uradio.MainActivity.stations;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -64,8 +62,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Initialising button options within the view
 
-        remove_station_button = (Button) findViewById(R.id.settingsRemoveButton);
-        about_button = (Button) findViewById(R.id.aboutButton);
+        remove_station_button = findViewById(R.id.settingsRemoveButton);
+        about_button = findViewById(R.id.aboutButton);
 
         // Onclick listeners for buttons
         remove_station_button.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
                 new AlertDialog.Builder(SettingsActivity.this)
                         .setIcon(R.drawable.ic_delete_forever_24px)
                         .setTitle("Confirm below...")
-                        .setMessage("Do you want to remove all Stations you have saved?")
+                        .setMessage("Do you want to remove all stations you have saved?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -108,11 +106,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            default:
+        if (item.getItemId() == android.R.id.home) {
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        } else {
                 return super.onOptionsItemSelected(item);
         }
     }

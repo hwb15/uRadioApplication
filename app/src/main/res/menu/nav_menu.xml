@@ -3,10 +3,14 @@
     <item
         android:id="@+id/nav_home"
         android:title="@string/str_home"
-        android:icon="@drawable/ic_home_black_18dp" />
+        android:icon="@drawable/ic_home_black_18dp"
+        android:tint="@color/colorSecondary"
+        android:textSize="16sp"/>
 
     <item
         android:id="@+id/nav_settings"
         android:title="@string/str_settings"
-        android:icon="@drawable/ic_setting_24px" />
+        android:icon="@drawable/ic_setting_24px"
+        android:tint="@color/colorSecondary"
+        android:textSize="16sp"/>
 </menu>
