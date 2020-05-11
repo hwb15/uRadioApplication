@@ -25,11 +25,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -107,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
         // Variable resets
         audio_on = false;
 
-        // Logging down state of audio on for testing
-        Log.v("randomtag", "Audio on state:" + audio_on);
 
         // If a new station has been saved down within addStationActivity (run method newstation)
 
@@ -240,6 +244,101 @@ public class MainActivity extends AppCompatActivity {
         null,
         null
         );
+        radioPlayer.addListener(new Player.EventListener() {
+            @Override
+            public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+                switch (error.type) {
+                    case ExoPlaybackException.TYPE_SOURCE:
+                        Log.v("SOURCE ERROR", "DSOURCE ERROR TEST SOURCE ERROR TEST");
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setIcon(R.drawable.ic_u_radio_pause)
+                                .setTitle("Issue connecting to the stream you provided!")
+                                .setMessage("We cannot connect to the radio stream.\nPlease remove the station, check and re-enter with the correct URL.")
+                                .setCancelable(true)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                                .show();
+                        break;
+
+                    case ExoPlaybackException.TYPE_RENDERER:
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setIcon(R.drawable.exo_notification_small_icon)
+                                .setMessage("This station cannot be played back right now.\nPlease remove the station and check the URL is correct.\nIf this issue persists, please contact us on twitter @uradiouk.")
+                                .setCancelable(true)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                                .show();
+                        break;
+
+                    case ExoPlaybackException.TYPE_UNEXPECTED:
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setIcon(R.drawable.exo_notification_small_icon)
+                                .setMessage("This station cannot be played back.\nPlease remove the station and check the URL is correct.\nIf this issue persists, please contact us on twitter @uradiouk.")
+                                .setCancelable(true)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                                .show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPositionDiscontinuity(int reason) {
+
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+            }
+
+            @Override
+            public void onSeekProcessed() {
+
+            }
+        });
         radioPlayer.prepare(mediaSource);
     }
 
@@ -312,8 +411,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         stationurl = bundle.getString("stationurl");
         stationname = bundle.getString("stationname");
-        Log.v("Station NAME TEST", "Station NAME: " + stationname);
-        Log.v("Station URL TEST", "Station URL: " + stationurl);
         radio_station newStation = new radio_station(stationname, stationurl);
         stations.add(newStation);
     }
@@ -327,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
 }
 
 
