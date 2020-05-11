@@ -88,11 +88,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
-                        Toast.makeText(MainActivity.this, "Home Clicked", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav_settings:
-                        Toast.makeText(MainActivity.this, "Settings Clicked", Toast.LENGTH_SHORT).show();
                         Intent settings_active = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivityForResult(settings_active, LAUNCH_SETTINGS_ACTIVITY);
                         return true;
@@ -128,20 +126,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!audio_on) {
-                CreatePlayer();
-                radioPlayer.setPlayWhenReady(true);
-                playButton.setImageResource(R.drawable.ic_u_radio_pause);
-                audio_on = true;
+                    CreatePlayer();
+                    radioPlayer.setPlayWhenReady(true);
+                    playButton.setImageResource(R.drawable.ic_u_radio_pause);
+                    audio_on = true;
+                } else if (audio_on) {
+                    radioPlayer.stop();
+                    playButton.setImageResource(R.drawable.ic_u_radio_play);
+                    audio_on = false;
+                }
             }
-
-                else if (audio_on) {
-                radioPlayer.stop();
-                playButton.setImageResource(R.drawable.ic_u_radio_play);
-                audio_on = false;
-            }
-        }
         });
-
 
 
         stationAdapter = new ArrayAdapter(this, R.layout.simple_list_item_1_radiolist, stations) {
@@ -185,9 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     radioPlayer.setPlayWhenReady(true);
                     playButton.setImageResource(R.drawable.ic_u_radio_pause);
                     audio_on = true;
-                }
-
-                else if (audio_on) {
+                } else if (audio_on) {
                     radioPlayer.stop();
                     playButton.setImageResource(R.drawable.ic_u_radio_play);
                     audio_on = false;
@@ -219,21 +212,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        // Test for plus button to see if it changes to another view using intents
-
         plusStation = findViewById(R.id.plus_station_button);
         plusStation.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // if plus button is pressed, change to add_station activity
-                    Intent intent = new Intent(v.getContext(), addStationActivity.class);
-                    v.getContext().startActivity(intent);
-                    Log.i("Main Activity", "Add Station Activity");
-                }
-            });
-        }
-
+                Intent intent = new Intent(v.getContext(), addStationActivity.class);
+                v.getContext().startActivity(intent);
+                Log.i("Main Activity", "Add Station Activity");
+            }
+        });
+    }
 
     // ExoPlayer implementations
 

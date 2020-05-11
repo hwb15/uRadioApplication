@@ -25,9 +25,7 @@
             </intent-filter>
         </activity>
         <!-- Add Station Activity -->
-        <activity
-            android:name=".addStationActivity"
-            android:label="@string/app_name" />
+        <activity android:name=".addStationActivity" />
 
         <!-- Settings Activity -->
         <activity android:name=".SettingsActivity"/>
