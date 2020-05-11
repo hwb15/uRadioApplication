@@ -1,3 +1,4 @@
+<p align="center"><img alt="uRadio Logo" width="200" height="200" src="http://hwb15.brighton.domains/images/U-radio-logo.png"></p>
 <h1 align="center">Welcome to uRadio 👋</h1>
 <p>
   <a href="https://twitter.com/uRadioUK" target="_blank">
