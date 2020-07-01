@@ -13,8 +13,9 @@
 ## Usage
 
 ```sh
-Install using APK
+Install using APK from the releases section
 ```
+#### 📻 [Releases](https://github.com/hwb15/uRadioApplication/releases)
 
 ## Author
 
